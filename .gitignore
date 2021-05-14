@@ -1,0 +1,33 @@
+# Unity generated
+Library/
+Temp/
+
+# Updates between unity versions don't need to be tracked
+/Logs/*
+
+# Visual Studio
+*.csproj
+*.sln
+.vs/
+obj/*
+
+# Custom
+Builds/*
+Assets/DontCommit*
+
+/Assets/TextMesh Pro/*
+
+/zipStruct*
+
+# LFS
+
+# Packages
+/Packages/*/*
+!/Packages/manifest.json
+!/Packages/*/package.json
+
+*.jpg
+*.png
+*.obj
+*.fbx
+*.zip
