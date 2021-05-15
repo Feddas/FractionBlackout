@@ -5,13 +5,26 @@ using UnityEngine.UI;
 
 public class FractionButton : MonoBehaviour
 {
-    [Tooltip("TODO: opps, should be called ButtonsDenominator")]
-    public int ButtonsNumerator;
+    [Tooltip("The denominator this button represents")]
+    public int DenominatorButton = 1;
 
     [Tooltip("Fillable image that shows the already filled amount of this button")]
-    public Image FillBar;
+    public Image FillBar = null;
 
-    // void Start() { }
+    [Tooltip("Optional object to be duplicated beneath its parent to create visual dividers")]
+    public Transform DividerPrefab = null;
+
+    void Start()
+    {
+        if (DividerPrefab != null)
+        {
+            for (int i = 2; i <= DenominatorButton; i++)
+            {
+                Instantiate(DividerPrefab, DividerPrefab.parent).name = "Dividier " + i + "/" + DenominatorButton;
+            }
+        }
+    }
+
     // void Update() { }
 
     public void OnClick()
@@ -29,7 +42,7 @@ public class FractionButton : MonoBehaviour
         // extra debug info
         int numeratorCard = FractionDeck.Instance.CurrentCard.x;
         Debug.LogFormat("{0}/{1} => {2}/{3} {4}% => {5}%"
-            , numeratorCard, FractionDeck.Instance.CurrentCard.y, numeratorCard * multiplier, ButtonsNumerator
+            , numeratorCard, FractionDeck.Instance.CurrentCard.y, numeratorCard * multiplier, DenominatorButton
             , FillBar.fillAmount, FillBar.fillAmount + FractionDeck.Instance.CurrentFraction());
     }
 
@@ -59,15 +72,14 @@ public class FractionButton : MonoBehaviour
     private bool isEquivalentFraction(out float multiplier)
     {
         int denominatorCard = FractionDeck.Instance.CurrentCard.y;
-        int denominatorButton = ButtonsNumerator;
-        if (denominatorCard == denominatorButton)
+        if (denominatorCard == DenominatorButton)
         {
             multiplier = 1;
             return true;
         }
 
         // determine if denominators factor into one another. i.e. 3/6 => 2/4 is invalid
-        if (false == isCommonDivisors(denominatorCard, denominatorButton))
+        if (false == isCommonDivisors(denominatorCard, DenominatorButton))
         {
             multiplier = -1;
             return false;
@@ -75,7 +87,7 @@ public class FractionButton : MonoBehaviour
 
         // determine if numerator would be a whole number. i.e. 3/4 => 1.5/2 is invalid
         int numeratorCard = FractionDeck.Instance.CurrentCard.x;
-        multiplier = (float)denominatorButton / denominatorCard;
+        multiplier = (float)DenominatorButton / denominatorCard;
         float numeratorButton = numeratorCard * multiplier;
         if (numeratorButton % 1 >= float.Epsilon)
         {
