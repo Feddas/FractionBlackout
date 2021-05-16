@@ -19,9 +19,12 @@ public class FractionDeck : MonoBehaviour
     public Text TxtCardsLeft = null;
     public Text TxtBadClicks = null;
 
+    [Tooltip("Game object set to active when all bars are filled. Deactivated when the game (re)starts")]
+    public GameObject Win = null;
+
     private Queue<Vector2Int> Deck;
     private int badClicks = 0;
-    // Veronica found some cheats on, https://www.nctm.org/Classroom-Resources/Illuminations/Interactives/Fraction-Game/ I couldn't resist doing my own take on it. Only equivelent fractions are allowed.
+
     void Start()
     {
         if (Instance == null)
@@ -32,7 +35,7 @@ public class FractionDeck : MonoBehaviour
         {
             throw new System.Exception("More than one FractionDeck! " + this.name + " vs " + Instance.name);
         }
-        NewDeck();
+        Reset();
         NextCard();
     }
 
@@ -55,7 +58,13 @@ public class FractionDeck : MonoBehaviour
     [ContextMenu("Next Card")]
     public void NextCard()
     {
-        // first check if deck is empty to restart game
+        // game over checks
+        if (FindObjectsOfType<FractionButton>().All(fb => fb.FillBar.fillAmount > 0.99))
+        {
+            Win.SetActive(true); // Confetti thanks to https://www.youtube.com/watch?v=XBRpdDeMmCk
+        }
+
+        // is deck empty to restart game
         if (this.gameObject.activeInHierarchy == false)
         {
             Reset();
@@ -80,6 +89,7 @@ public class FractionDeck : MonoBehaviour
     public void Reset()
     {
         NewDeck();
+        Win.SetActive(false);
 
         // Reset bad clicks
         badClicks = -1;

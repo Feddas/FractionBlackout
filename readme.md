@@ -4,7 +4,9 @@ Fraction game for 3rd - 6th graders
 
 # Play
 
-In a web browser: https://feddas.github.io/FractionBlackout
+In a web browser:
+- On github: https://feddas.github.io/FractionBlackout
+- On play.unity: https://play.unity.com/mg/other/fraction-blackout
 
 # Description
 
@@ -17,8 +19,8 @@ Another online version can be played online at https://www.nctm.org/Classroom-Re
 ### Variant
 
 How this version of Fraction Blackout varies from the reference games above.
+- Fractions must be equivelent (less than isn't allowed)
 - Numerators must be a whole number. i.e. 3/4 => 1.5/2 is invalid
-- Denominators must factor into one another. i.e. 3/6 => 2/4 is invalid
 
 # Repo
 

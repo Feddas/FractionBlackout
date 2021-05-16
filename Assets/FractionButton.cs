@@ -79,11 +79,11 @@ public class FractionButton : MonoBehaviour
         }
 
         // determine if denominators factor into one another. i.e. 3/6 => 2/4 is invalid
-        if (false == isCommonDivisors(denominatorCard, DenominatorButton))
-        {
-            multiplier = -1;
-            return false;
-        }
+        //if (false == isCommonDivisors(denominatorCard, DenominatorButton))
+        //{
+        //    multiplier = -1;
+        //    return false;
+        //}
 
         // determine if numerator would be a whole number. i.e. 3/4 => 1.5/2 is invalid
         int numeratorCard = FractionDeck.Instance.CurrentCard.x;
